@@ -4,7 +4,7 @@ import scala.swing._
 
 object SetupScreen {
   def main(args: Array[String]): Unit = {
-    println("StartTest")
+    println("StartTest2")
   }
   new Frame {
     title = "Hello world"
