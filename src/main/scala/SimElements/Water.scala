@@ -27,7 +27,7 @@ class Water(val particleSize: Double) {
       val newPosition = new Vector2(x + i, y + j)
       val newForce = new Vector2(i, j)
       if (newForce.length() != 0) {
-        val particle = new WaterParticle(newPosition, new Vector2(i * strength, j * strength), 10, 1) //TODO placeholder values
+        val particle = new WaterParticle(newPosition, new Vector2(i * strength, j * strength), 10, particleSize) //TODO placeholder values
 
         val particleMaybe = waterMap.get(newPosition)
         particleMaybe match {
