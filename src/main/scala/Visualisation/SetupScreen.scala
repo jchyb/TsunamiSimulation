@@ -1,17 +1,20 @@
 package Visualisation
 
+import SimElements.World
+import Utils.Vector2
+
 import scala.swing._
 import scala.swing.event.ValueChanged
 
 object SetupScreen {
 
   private var waveStrength : Double = 50
-  private var simulationTimeInSec : Double = 1
+  private var simulationTimeInSec : Double = 100
+  private var wavePosition : Vector2[Int] = new Vector2[Int](0,0)
 
   def main(args: Array[String]): Unit = {
     println("Start")
   }
-
   new Frame {
     title = "Simulation"
 
@@ -53,7 +56,12 @@ object SetupScreen {
       }
 
       contents += new Button("Run with visualisation") {
-        reactions += {case event.ButtonClicked(_) => print("read", waveStrength)}
+        reactions += {case event.ButtonClicked(_) => {
+          print("read", waveStrength)
+          val world = new World(100) //TODO change
+          world.set(wavePosition, waveStrength)
+          new RenderingFrame(world)
+        }}
       }
       contents += new Button("Run with logger") {
         reactions += {case event.ButtonClicked(_) => print("read", waveStrength)}
@@ -66,4 +74,5 @@ object SetupScreen {
     centerOnScreen()
     open()
   }
+
 }
