@@ -14,27 +14,52 @@ object SetupScreen {
   new Frame {
     title = "Simulation"
 
-    contents = new FlowPanel {
-      contents += new Label("Wave settings:")
-      contents += new Button("Start") {
-        reactions += {
-          case event.ButtonClicked(_) => print("read", waveStrength)
-        }
-      }
-      var label : Label = new Label("Value: 0.0")
+    contents = new BoxPanel(Orientation.Vertical) {
+      val settingsLabel = new Label("Wave settings:")
+      contents += settingsLabel
 
-      contents += new Slider() {
-        title = "Simulation"
-        reactions += {
-          case ValueChanged(_) => {
-            waveStrength = this.value
-            label.text = "Value: " + this.value.toString
+      contents += new FlowPanel() {
+
+        val label: Label = new Label("Strength: 0.0")
+        contents += label
+
+        contents += new Slider() {
+          title = "Simulation"
+          reactions += {
+            case ValueChanged(_) => {
+              waveStrength = this.value
+              label.text = "Strength: " + this.value.toString
+            }
           }
         }
       }
-      contents += label
+        //TODO - nie spełnia DRY - dokładnie to co wyżej
+        contents += new FlowPanel(){
 
+          val label : Label = new Label("Strength: 0.0")
+          contents += label
+
+          contents += new Slider() {
+            title = "Simulation"
+            reactions += {
+              case ValueChanged(_) => {
+                waveStrength = this.value
+                label.text = "Strength: " + this.value.toString
+              }
+            }
+          }
+
+      }
+
+      contents += new Button("Run with visualisation") {
+        reactions += {case event.ButtonClicked(_) => print("read", waveStrength)}
+      }
+      contents += new Button("Run with log") {
+        reactions += {case event.ButtonClicked(_) => print("read", waveStrength)}
+      }
+      border = Swing.EmptyBorder(10, 10, 10, 10)
     }
+    override def closeOperation(): Unit = System.exit(0)
     pack()
     centerOnScreen()
     open()
