@@ -13,8 +13,14 @@ class Water(val particleSize: Double) {
     var list = List[WaterParticle]()
 
     for (v <- waterMap.values) {
-      list = list :: v.update(deltaTime)
+      list = List.concat(list, v.update(deltaTime))
     }
+
+    // apply wind
+    applyWind(list)
+    //apply collision
+    applyCollision(list)
+
     waterMap.clear()
     for (particle <- list){
       waterMap.get(particle.position) match {
@@ -25,8 +31,14 @@ class Water(val particleSize: Double) {
   }
 
   //TODO Apply wind
+  def applyWind(list: List[WaterParticle]) = {
+    list
+  }
 
   //TODO Apply collision (after other objects and movement)
+  def applyCollision(list: List[WaterParticle]) = {
+    list
+  }
 
   def initiateWave(position: Vector2[Int], strength: Double): Unit = {
     val x = position.x

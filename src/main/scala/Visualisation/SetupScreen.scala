@@ -5,7 +5,7 @@ import scala.swing.event.ValueChanged
 
 object SetupScreen {
 
-  private var waveStrength : Double = 0
+  private var waveStrength : Double = 50
   private var simulationTimeInSec : Double = 1
 
   def main(args: Array[String]): Unit = {
