@@ -62,9 +62,9 @@ object SetupScreen {
       contents += new Button("Run with visualisation") {
         reactions += {case event.ButtonClicked(_) => {
           print("read", waveStrength)
-          world = new World(100) //TODO change
+          world = new World(100,new RenderingFrame(world)) //TODO change
           world.set(wavePosition, waveStrength)
-          new RenderingFrame(world)
+
           waiting = false
         }}
       }

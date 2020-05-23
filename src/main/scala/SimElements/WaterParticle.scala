@@ -2,7 +2,7 @@ package SimElements
 
 import Utils.Vector2
 
-case class WaterParticle(val position: Vector2[Int], val force: Vector2[Double], val height: Double, val length: Double) {
+case class WaterParticle(position: Vector2[Int], force: Vector2[Double], height: Double, length: Double) extends WorldEntity{
   // force - where water of the particle is going
   // height - amount of water in the particle
   // length - const for every particle, width/height of represented area

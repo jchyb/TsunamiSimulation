@@ -5,6 +5,7 @@ import Utils.Vector2
 import scala.collection.mutable
 
 class Water(val particleSizeInMeters: Double) {
+
   // Contains water particle data
   private val waterMap: mutable.HashMap[Vector2[Int], WaterParticle] = mutable.HashMap()
 
@@ -58,7 +59,7 @@ class Water(val particleSizeInMeters: Double) {
     }
   }
 
-  // Returns immutable list of WaterParticles
-  // def toList() : List[WaterParticle] = List(waterMap.values)//TODO fix
+  // Returns iterable of WaterParticles
+  def toIterable() : Iterable[WaterParticle] = waterMap.values
 
 }

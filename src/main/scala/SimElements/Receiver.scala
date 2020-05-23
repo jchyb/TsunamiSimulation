@@ -1,5 +1,5 @@
 package SimElements
 
 trait Receiver {
-  def receive(list : List[WorldEntity])
+  def receive(list : Iterable[WorldEntity])
 }

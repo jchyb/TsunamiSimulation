@@ -1,6 +1,6 @@
 package Utils
 
-case class Vector2[T](val x: T, val y: T)(implicit num: Numeric[T]) {
+case class Vector2[T](x: T, y: T)(implicit num: Numeric[T]) {
 
   import num._
 
@@ -24,4 +24,15 @@ case class Vector2[T](val x: T, val y: T)(implicit num: Numeric[T]) {
 
   def normalise(): Vector2[Double] =
     Vector2(this.x.toDouble / length(), this.y.toDouble / length())
+
+  /*override def equals(other: Any): Boolean = {
+    if(!other.isInstanceOf[Vector2[T]]) false
+    else {
+      val otherAsInstance = other.asInstanceOf[Vector2[T]]
+      return this.x == otherAsInstance.x && this.y == otherAsInstance.y
+    }
+  }
+
+  override def hashCode: Int = (31 * this.x.toDouble + 17 * this.y.toDouble).toInt*/
+
 }

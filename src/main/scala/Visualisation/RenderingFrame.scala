@@ -8,7 +8,7 @@ import scala.swing.{BoxPanel, Dimension, Frame, Graphics2D, Label, Orientation, 
 
 class RenderingFrame(private val simulationWorld : World) extends Frame with Receiver {
 
-  var entityList : List[WorldEntity] = _
+  var entityIterable : Iterable[WorldEntity] = _
 
   contents = new BoxPanel(Orientation.Vertical){
     contents += new Label("Cycle 0/")
@@ -28,8 +28,10 @@ class RenderingFrame(private val simulationWorld : World) extends Frame with Rec
     open()
   }
 
-  override def receive(list: List[WorldEntity]): Unit = {
-    this.entityList = list
+  override def receive(list: Iterable[WorldEntity]): Unit = {
+    this.entityIterable = list
     repaint()
   }
+
+
 }
