@@ -11,6 +11,7 @@ case class WaterParticle(val position: Vector2[Int], val force: Vector2[Double],
   def update(deltaTime: Double): List[WaterParticle] = {
     /* Divides and moves the particle according to force strength and direction.
     Returns a queue of newly created particles. */
+
     var newParticles = List[WaterParticle]()
     // TODO improve range depending on distance between particles (ja to zrobie)
     val centralPosition = new Vector2[Int]((position.x + (force.x * deltaTime)).asInstanceOf[Int],
@@ -24,11 +25,11 @@ case class WaterParticle(val position: Vector2[Int], val force: Vector2[Double],
       val offset = Vector2[Int](i, j)
       val newPosition = centralPosition + offset
 
-      newParticles :+ WaterParticle(newPosition, force,
+      newParticles = newParticles :+ WaterParticle(newPosition, force,
         height * math.pow(1.0/2, level+1) / elementsInLevel, length)
     }
 
-    newParticles :+ WaterParticle(centralPosition, force,
+    newParticles = newParticles :+ WaterParticle(centralPosition, force,
       height * math.pow(1.0/2, maxLevel+1), length)
 
     newParticles

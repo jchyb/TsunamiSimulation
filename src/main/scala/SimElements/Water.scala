@@ -10,8 +10,17 @@ class Water(val particleSize: Double) {
 
   // Apply water physics
   def update(deltaTime: Double): Unit = {
+    var list = List[WaterParticle]()
+
     for (v <- waterMap.values) {
-      v.update(deltaTime)
+      list = list :: v.update(deltaTime)
+    }
+    waterMap.clear()
+    for (particle <- list){
+      waterMap.get(particle.position) match {
+        case Some(particleIn) => waterMap.addOne(particle.position, particle + particleIn)
+        case None => waterMap.addOne(particle.position, particle)
+      }
     }
   }
 

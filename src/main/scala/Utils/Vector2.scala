@@ -1,6 +1,6 @@
 package Utils
 
-class Vector2[T](val x: T, val y: T)(implicit num: Numeric[T]) {
+case class Vector2[T](val x: T, val y: T)(implicit num: Numeric[T]) {
 
   import num._
 
@@ -17,6 +17,8 @@ class Vector2[T](val x: T, val y: T)(implicit num: Numeric[T]) {
     new Vector2[Double](this.x.asInstanceOf[Double] / scalar, this.y.asInstanceOf[Double] / scalar)
 
   def length(): Double = Math.sqrt((x * x + y * y).asInstanceOf[Double])
+
+  def sumOfElements() : T = x + y
 
   def normalise(): Vector2[Double] =
     new Vector2(this.x.asInstanceOf[Double] / length(), this.y.asInstanceOf[Double] / length())
