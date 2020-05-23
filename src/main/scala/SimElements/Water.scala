@@ -27,10 +27,9 @@ class Water(val particleSize: Double) {
       val newPosition = new Vector2(x + i, y + j)
       val newForce = new Vector2(i, j)
       if (newForce.length() != 0) {
-        val particle = new WaterParticle(newPosition, new Vector2(i * strength, j * strength), 10, particleSize) //TODO placeholder values
+        val particle = WaterParticle(newPosition, new Vector2(i * strength, j * strength), 10, particleSize) //TODO placeholder values
 
-        val particleMaybe = waterMap.get(newPosition)
-        particleMaybe match {
+        waterMap.get(newPosition) match {
           case Some(particleIn) => waterMap.addOne(newPosition, particle + particleIn)
           case None => waterMap.addOne(newPosition, particle)
         }
@@ -38,6 +37,7 @@ class Water(val particleSize: Double) {
     }
   }
 
+  // Returns immutable list of WaterParticles
   //def toList() : List[WaterParticle] = List(waterMap.values)//TODO fix
 
 }

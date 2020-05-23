@@ -20,7 +20,7 @@ object SetupScreen {
 
       contents += new FlowPanel() {
 
-        val label: Label = new Label("Strength: 0.0")
+        val label: Label = new Label("Force: 50")
         contents += label
 
         contents += new Slider() {
@@ -28,7 +28,7 @@ object SetupScreen {
           reactions += {
             case ValueChanged(_) => {
               waveStrength = this.value
-              label.text = "Strength: " + this.value.toString
+              label.text = "Force: " + this.value.toString
             }
           }
         }
@@ -36,7 +36,7 @@ object SetupScreen {
         //TODO - nie spełnia DRY - dokładnie to co wyżej
         contents += new FlowPanel(){
 
-          val label : Label = new Label("Strength: 0.0")
+          val label : Label = new Label("Wind: 50")
           contents += label
 
           contents += new Slider() {
@@ -44,7 +44,7 @@ object SetupScreen {
             reactions += {
               case ValueChanged(_) => {
                 waveStrength = this.value
-                label.text = "Strength: " + this.value.toString
+                label.text = "Wind: " + this.value.toString
               }
             }
           }
@@ -54,7 +54,7 @@ object SetupScreen {
       contents += new Button("Run with visualisation") {
         reactions += {case event.ButtonClicked(_) => print("read", waveStrength)}
       }
-      contents += new Button("Run with log") {
+      contents += new Button("Run with logger") {
         reactions += {case event.ButtonClicked(_) => print("read", waveStrength)}
       }
       border = Swing.EmptyBorder(10, 10, 10, 10)
