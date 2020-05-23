@@ -16,6 +16,8 @@ case class Vector2[T](val x: T, val y: T)(implicit num: Numeric[T]) {
   def /(scalar: Double): Vector2[Double] =
     new Vector2[Double](this.x.toDouble / scalar, this.y.toDouble / scalar)
 
+  def >(other: Vector2[T]): Boolean = this.length()>other.length()
+
   def length(): Double = Math.sqrt((x * x + y * y).toDouble)
 
   def sumOfElements() : T = x + y
