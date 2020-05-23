@@ -11,10 +11,14 @@ object SetupScreen {
   private var waveStrength : Double = 50
   private var simulationTimeInSec : Double = 100
   private var wavePosition : Vector2[Int] = new Vector2[Int](0,0)
+  private var waiting : Boolean = true
+  private var world : World = _
 
   def main(args: Array[String]): Unit = {
-    println("Start")
+    while(waiting) Thread.sleep(1000)
+    world.run()
   }
+
   new Frame {
     title = "Simulation"
 
@@ -58,9 +62,10 @@ object SetupScreen {
       contents += new Button("Run with visualisation") {
         reactions += {case event.ButtonClicked(_) => {
           print("read", waveStrength)
-          val world = new World(100) //TODO change
+          world = new World(100) //TODO change
           world.set(wavePosition, waveStrength)
           new RenderingFrame(world)
+          waiting = false
         }}
       }
       contents += new Button("Run with logger") {

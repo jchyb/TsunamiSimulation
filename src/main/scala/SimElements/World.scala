@@ -2,7 +2,7 @@ package SimElements
 
 import Utils.Vector2
 
-class World(private val simTimeInSeconds : Int){
+class World(private val simTimeInSeconds : Int, rece){
   var water : Water = _
 
   def set(wavePosition : Vector2[Int], waveStrength : Double): Unit = {
@@ -14,5 +14,6 @@ class World(private val simTimeInSeconds : Int){
     for(i <- 0 to simTimeInSeconds){
       water.update(deltaTime)
     }
+
   }
 }

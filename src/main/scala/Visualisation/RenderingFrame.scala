@@ -2,12 +2,13 @@ package Visualisation
 
 import java.awt.Color
 
-import SimElements.World
+import SimElements.{Receiver, World, WorldEntity}
 
 import scala.swing.{BoxPanel, Dimension, Frame, Graphics2D, Label, Orientation, Panel}
 
-class RenderingFrame(private val simulationWorld : World) extends Frame{
+class RenderingFrame(private val simulationWorld : World) extends Frame with Receiver {
 
+  var entityList : List[WorldEntity] = _
 
   contents = new BoxPanel(Orientation.Vertical){
     contents += new Label("Cycle 0/")
@@ -16,7 +17,7 @@ class RenderingFrame(private val simulationWorld : World) extends Frame{
       focusable = true
       listenTo(keys)
 
-      override def paint(g: Graphics2D) : Unit =  {
+      override def paint(g: Graphics2D) : Unit = {
         g.setColor(Color.BLUE)
         g.fillRect(0, 0, size.width, size.height)
         repaint()
@@ -25,5 +26,10 @@ class RenderingFrame(private val simulationWorld : World) extends Frame{
     pack()
     centerOnScreen()
     open()
+  }
+
+  override def receive(list: List[WorldEntity]): Unit = {
+    this.entityList = list
+    repaint()
   }
 }
