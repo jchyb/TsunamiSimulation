@@ -11,6 +11,7 @@ object SetupScreen {
   def main(args: Array[String]): Unit = {
     println("Start")
   }
+
   new Frame {
     title = "Simulation"
 
@@ -59,6 +60,7 @@ object SetupScreen {
       }
       border = Swing.EmptyBorder(10, 10, 10, 10)
     }
+
     override def closeOperation(): Unit = System.exit(0)
     pack()
     centerOnScreen()
