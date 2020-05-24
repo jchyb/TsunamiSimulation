@@ -13,23 +13,29 @@ case class WaterParticle(position: Vector2[Int], force: Vector2[Double], height:
 
     spill(deltaTime)
   }
+
   //TODO delete?
   def spill(deltaTime: Double): List[WaterParticle] ={
     var newParticles = List[WaterParticle]()
     // TODO improve range depending on distance between particles (ja to zrobie)
-    val centralPosition = new Vector2[Int]((position.x + (force.x * deltaTime)).asInstanceOf[Int],
-      (position.y + (force.y * deltaTime)).asInstanceOf[Int])
+    val centralPosition = new Vector2[Int]((position.x + (force.x * deltaTime)).toInt,
+      (position.y + (force.y * deltaTime)).toInt)
 
+    val heightDifferenceImpact = 1
     val maxLevel = 1
     for (i <- -maxLevel to maxLevel; j <- -maxLevel to maxLevel) {
 
       val level = math.max(math.abs(i), Math.abs(j))
       val elementsInLevel = if(level == 0) 1 else 8 + 4 * level
       val offset = Vector2[Int](i, j)
+      val newHeight = height * math.pow(1.0/2, level+1) / elementsInLevel
       val newPosition = centralPosition + offset
+      val forceChange = if (i!=0 && j!=0) offset.normalise() * heightDifferenceImpact * (height - newHeight) else Vector2[Double](0,0)
+//      val forceChange = Vector2[Double](0,0)  // Old version
+//      println(forceChange)
 
-      newParticles = newParticles :+ WaterParticle(newPosition, force,
-        height * math.pow(1.0/2, level+1) / elementsInLevel, length)
+      newParticles = newParticles :+ WaterParticle(newPosition, force + forceChange,
+        newHeight, length)
     }
 
     newParticles = newParticles :+ WaterParticle(centralPosition, force,
@@ -37,6 +43,7 @@ case class WaterParticle(position: Vector2[Int], force: Vector2[Double], height:
 
     newParticles
   }
+
   def +(other: WaterParticle): WaterParticle = {
     val newForce = (this.force * this.height + other.force * other.height) / (this.height + other.height)
     WaterParticle(position, newForce, this.height + other.height, length)
