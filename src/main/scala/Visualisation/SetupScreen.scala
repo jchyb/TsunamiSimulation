@@ -10,7 +10,7 @@ object SetupScreen {
 
   private var waveStrength : Double = 50
   private var windStrength : Double = 50
-  private var windImpact: Double = 0.1  //  TODO: Input windImpact
+  private var windImpact: Double = 0.001  //  TODO: Input windImpact
   private var simulationTimeInSec : Double = 100
   private var wavePosition : Vector2[Int] = new Vector2[Int](0,0)
   private var windDirection: Vector2[Double] = new Vector2[Double](1, 100) // TODO: Input wind direction

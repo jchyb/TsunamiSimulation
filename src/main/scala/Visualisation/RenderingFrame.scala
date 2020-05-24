@@ -25,8 +25,8 @@ class RenderingFrame(private val simulationWorld : World) extends Frame with Rec
         if(entityIterable.nonEmpty) {
           for (entity <- entityIterable) entity match {
               case WaterParticle(position, force, height, length) => {
-                //g.setColor(new Color(0,0,255, math.min((height*2000).toInt, 255)))
-                g.setColor(Color.BLACK)
+                g.setColor(new Color(0,0,255, math.min((height*2000).toInt, 255)))
+//                g.setColor(Color.BLACK)
                 g.fillRect(position.x*2 + size.width/2, position.y*2 + size.height/2, 2, 2)
               }
             }
