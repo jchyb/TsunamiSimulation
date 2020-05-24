@@ -27,7 +27,7 @@ class RenderingFrame(private val simulationWorld : World) extends Frame with Rec
               case WaterParticle(position, force, height, length) => {
                 //g.setColor(new Color(0,0,255, math.min((height*2000).toInt, 255)))
                 g.setColor(Color.BLACK)
-                g.fillRect(position.x + size.width/2, position.y + size.height/2, 1, 1)
+                g.fillRect(position.x*2 + size.width/2, position.y*2 + size.height/2, 2, 2)
               }
             }
 

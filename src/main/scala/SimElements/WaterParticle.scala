@@ -7,11 +7,14 @@ case class WaterParticle(position: Vector2[Int], force: Vector2[Double], height:
   // height - amount of water in the particle
   // length - const for every particle, width/height of represented area
 
-
   def update(deltaTime: Double): List[WaterParticle] = {
     /* Divides and moves the particle according to force strength and direction.
     Returns a queue of newly created particles. */
 
+    spill(deltaTime)
+  }
+  //TODO delete?
+  def spill(deltaTime: Double): List[WaterParticle] ={
     var newParticles = List[WaterParticle]()
     // TODO improve range depending on distance between particles (ja to zrobie)
     val centralPosition = new Vector2[Int]((position.x + (force.x * deltaTime)).asInstanceOf[Int],
@@ -34,7 +37,6 @@ case class WaterParticle(position: Vector2[Int], force: Vector2[Double], height:
 
     newParticles
   }
-
   def +(other: WaterParticle): WaterParticle = {
     val newForce = (this.force * this.height + other.force * other.height) / (this.height + other.height)
     WaterParticle(position, newForce, this.height + other.height, length)
