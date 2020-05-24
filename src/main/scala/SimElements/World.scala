@@ -16,5 +16,6 @@ class World(private val simTimeInSeconds : Int, receiver : Receiver){
       receiver.receive(water.toIterable())
       Thread.sleep(1000)
     }
+
   }
 }
