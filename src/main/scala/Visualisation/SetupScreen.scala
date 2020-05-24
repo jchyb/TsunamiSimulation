@@ -57,14 +57,13 @@ object SetupScreen {
               }
             }
           }
-
       }
 
       contents += new Button("Run with visualisation") {
         reactions += {case event.ButtonClicked(_) => {
           print("read", waveStrength)
           world = new World(100,new RenderingFrame(world)) //TODO change
-          world.set(wavePosition, waveStrength)
+          world.set(wavePosition, waveStrength/10)
 
           waiting = false
         }}
