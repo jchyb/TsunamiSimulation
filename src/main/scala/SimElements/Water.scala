@@ -61,5 +61,4 @@ class Water(val particleSizeInMeters: Double) {
 
   // Returns iterable of WaterParticles
   def toIterable() : Iterable[WaterParticle] = waterMap.values
-
 }

@@ -16,6 +16,7 @@ object SetupScreen {
 
   def main(args: Array[String]): Unit = {
     while(waiting) Thread.sleep(1000)
+    println("ok")
     world.run()
   }
 

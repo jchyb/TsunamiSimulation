@@ -13,7 +13,8 @@ class World(private val simTimeInSeconds : Int, receiver : Receiver){
     val deltaTime = 1
     for(i <- 0 to simTimeInSeconds){
       water.update(deltaTime)
+      receiver.receive(water.toIterable())
+      Thread.sleep(1000)
     }
-    receiver.receive(water.toIterable())
   }
 }
