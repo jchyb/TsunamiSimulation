@@ -19,6 +19,7 @@ class Water(val particleSizeInMeters: Double) {
 
     // apply wind
     list = applyWind(list, wind)
+
     //apply collision
     list = applyCollision(list)
 
@@ -33,7 +34,6 @@ class Water(val particleSizeInMeters: Double) {
 
   //TODO Apply wind
   def applyWind(list: List[WaterParticle], wind: Wind): List[WaterParticle] = {
-//    list
     list.map(wind(_)) //  Should work?
   }
 

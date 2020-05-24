@@ -10,17 +10,17 @@ class World(private val simTimeInSeconds : Int, receiver : Receiver){
     water = new Water(1)
     water.initiateWave(wavePosition, waveStrength)
   }
+
   def setWind(windDirection: Vector2[Double], windForce: Double): Unit = {
     wind = Wind(windDirection, windForce)
   }
 
-  def run(): Unit ={
+  def run(): Unit = {
     val deltaTime = 1
     for(i <- 0 to simTimeInSeconds){
       water.update(deltaTime, wind)
       receiver.receive(water.toIterable())
       Thread.sleep(1000)
     }
-
   }
 }

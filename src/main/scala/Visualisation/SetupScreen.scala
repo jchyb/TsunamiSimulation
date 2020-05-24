@@ -1,5 +1,7 @@
 package Visualisation
 
+import java.awt.Dimension
+
 import SimElements.World
 import Utils.Vector2
 
@@ -25,14 +27,18 @@ object SetupScreen {
 
   new Frame {
     title = "Simulation"
+    maximumSize = new Dimension(100,100)
+    resizable = false
 
     contents = new BoxPanel(Orientation.Vertical) {
+      //border = (TitledBorder(EtchedBorder, "Radio Buttons"), EmptyBorder(5,5,5,10))
       val settingsLabel = new Label("Wave settings:")
       contents += settingsLabel
 
       contents += new FlowPanel() {
 
         val label: Label = new Label("Force: 50")
+        label.minimumSize = new swing.Dimension(30,30)
         contents += label
 
         contents += new Slider() {
@@ -40,7 +46,6 @@ object SetupScreen {
           reactions += {
             case ValueChanged(_) => {
               waveStrength = this.value
-              label.text = "Force: " + this.value.toString
             }
           }
         }
@@ -49,6 +54,7 @@ object SetupScreen {
         contents += new FlowPanel(){
 
           val label : Label = new Label("Wind: 50")
+          label.minimumSize = new swing.Dimension(30,30)
           contents += label
 
           contents += new Slider() {
