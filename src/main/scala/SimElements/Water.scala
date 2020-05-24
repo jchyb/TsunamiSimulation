@@ -10,7 +10,7 @@ class Water(val particleSizeInMeters: Double) {
   private val waterMap: mutable.HashMap[Vector2[Int], WaterParticle] = mutable.HashMap()
 
   // Apply water physics
-  def update(deltaTime: Double): Unit = {
+  def update(deltaTime: Double, wind: Wind): Unit = {
     var list = List[WaterParticle]()
 
     for (v <- waterMap.values) {
@@ -18,9 +18,9 @@ class Water(val particleSizeInMeters: Double) {
     }
 
     // apply wind
-    applyWind(list)
+    list = applyWind(list, wind)
     //apply collision
-    applyCollision(list)
+    list = applyCollision(list)
 
     waterMap.clear()
     for (particle <- list){
@@ -32,12 +32,13 @@ class Water(val particleSizeInMeters: Double) {
   }
 
   //TODO Apply wind
-  def applyWind(list: List[WaterParticle]) = {
-    list
+  def applyWind(list: List[WaterParticle], wind: Wind): List[WaterParticle] = {
+//    list
+    list.map(wind(_)) //  Should work?
   }
 
   //TODO Apply collision (after other objects and movement)
-  def applyCollision(list: List[WaterParticle]) = {
+  def applyCollision(list: List[WaterParticle]): List[WaterParticle] = {
     list
   }
 

@@ -2,14 +2,15 @@ package SimElements
 
 import Utils.Vector2
 
-case class Wind(val direction: Vector2[Double], val force: Double = 0.1) {
-  // direction - direction and power of wind, force - how much does wind impact water
+case class Wind(private val direction: Vector2[Double], private val impact: Double = 0.1) {
+  // direction - direction and power of wind, impact - how much does wind impact water
 
+  // applying wind and "friction"
   def apply(particle: WaterParticle): WaterParticle = {
-    WaterParticle(particle.position, -particle.force*force+direction*force, particle.height, particle.length)
+    WaterParticle(particle.position, -particle.force*impact+direction*impact, particle.height, particle.length)
   }
 
   def +(other: Wind): Wind = {
-    Wind(direction+other.direction, (force+other.force)/2)
+    Wind(direction+other.direction, (impact+other.impact)/2)
   }
 }

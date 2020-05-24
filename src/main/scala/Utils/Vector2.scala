@@ -25,7 +25,9 @@ case class Vector2[T](x: T, y: T)(implicit num: Numeric[T]) {
   def normalise(): Vector2[Double] =
     Vector2(this.x.toDouble / length(), this.y.toDouble / length())
 
-  /*override def equals(other: Any): Boolean = {
+  override def toString: String = "("+this.x.toString+","+this.y.toString+")"
+
+  /*override def equals(other: Any): Boolean = { //Chyba się przyda do mapy?
     if(!other.isInstanceOf[Vector2[T]]) false
     else {
       val otherAsInstance = other.asInstanceOf[Vector2[T]]
