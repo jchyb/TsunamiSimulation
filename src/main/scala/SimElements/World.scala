@@ -2,12 +2,12 @@ package SimElements
 
 import Utils.Vector2
 
-class World(private val simTimeInSeconds : Int, receiver : Receiver){
+class World(private val simTime : Int, receiver : Receiver){
   var water : Water = _
   var wind : Wind = _ //TODO: changing wind
 
   def setWave(wavePosition : Vector2[Int], waveStrength : Double): Unit = {
-    water = new Water(1)
+    water = new Water()
     water.initiateWave(wavePosition, waveStrength)
   }
 
@@ -17,7 +17,7 @@ class World(private val simTimeInSeconds : Int, receiver : Receiver){
 
   def run(): Unit = {
     val deltaTime = 1
-    for(i <- 0 to simTimeInSeconds){
+    for(i <- 0 to simTime){
       water.update(deltaTime, wind)
       receiver.receive(water.toIterable())
       Thread.sleep(1000)

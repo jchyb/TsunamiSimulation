@@ -36,5 +36,4 @@ case class Vector2[T](x: T, y: T)(implicit num: Numeric[T]) {
   }
 
   override def hashCode: Int = (31 * this.x.toDouble + 17 * this.y.toDouble).toInt*/
-
 }

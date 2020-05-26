@@ -4,7 +4,7 @@ import Utils.Vector2
 
 import scala.collection.mutable
 
-class Water(val particleSizeInMeters: Double) {
+class Water() {
 
   // Contains water particle data
   private val waterMap: mutable.HashMap[Vector2[Int], WaterParticle] = mutable.HashMap()
@@ -32,7 +32,6 @@ class Water(val particleSizeInMeters: Double) {
     }
   }
 
-  //TODO Apply wind
   def applyWind(list: List[WaterParticle], wind: Wind): List[WaterParticle] = {
     list.map(wind(_)) //  Should work?
   }
@@ -47,10 +46,10 @@ class Water(val particleSizeInMeters: Double) {
     val y = position.y
 
     for (i <- -1 to 1; j <- -1 to 1) {
-      val newPosition = new Vector2(x + i, y + j)
-      val newForce = new Vector2(i, j)
+      val newPosition = Vector2(x + i, y + j)
+      val newForce = Vector2(i, j)
       if (newForce.length() != 0) {
-        val particle = WaterParticle(newPosition, new Vector2(i * strength, j * strength), 10, particleSizeInMeters) //TODO placeholder values
+        val particle = WaterParticle(newPosition, Vector2(-1 * strength, 0 * strength), 10) //TODO placeholder values
 
         waterMap.get(newPosition) match {
           case Some(particleIn) => waterMap.addOne(newPosition, particle + particleIn)
@@ -61,5 +60,5 @@ class Water(val particleSizeInMeters: Double) {
   }
 
   // Returns iterable of WaterParticles
-  def toIterable() : Iterable[WaterParticle] = waterMap.values
+  def toIterable : Iterable[WaterParticle] = waterMap.values
 }

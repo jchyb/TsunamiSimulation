@@ -2,22 +2,22 @@ package SimElements
 
 import Utils.Vector2
 
-case class WaterParticle(position: Vector2[Int], force: Vector2[Double], height: Double, length: Double) extends WorldEntity{
+case class WaterParticle(position: Vector2[Int], force: Vector2[Double], height: Double) extends WorldEntity{
   // force - where water of the particle is going
   // height - amount of water in the particle
   // length - const for every particle, width/height of represented area
 
   def update(deltaTime: Double): List[WaterParticle] = {
     /* Divides and moves the particle according to force strength and direction.
-    Returns a queue of newly created particles. */
+    Returns a list of newly created particles. */
 
     spill(deltaTime)
   }
 
-  //TODO delete?
+
   def spill(deltaTime: Double): List[WaterParticle] ={
     var newParticles = List[WaterParticle]()
-    // TODO improve range depending on distance between particles (ja to zrobie)
+
     val centralPosition = new Vector2[Int]((position.x + (force.x * deltaTime)).toInt,
       (position.y + (force.y * deltaTime)).toInt)
 
@@ -35,17 +35,17 @@ case class WaterParticle(position: Vector2[Int], force: Vector2[Double], height:
 //      println(forceChange)
 
       newParticles = newParticles :+ WaterParticle(newPosition, force + forceChange,
-        newHeight, length)
+        newHeight)
     }
 
     newParticles = newParticles :+ WaterParticle(centralPosition, force,
-      height * math.pow(1.0/2, maxLevel+1), length)
+      height * math.pow(1.0/2, maxLevel+1))
 
     newParticles
   }
 
   def +(other: WaterParticle): WaterParticle = {
     val newForce = (this.force * this.height + other.force * other.height) / (this.height + other.height)
-    WaterParticle(position, newForce, this.height + other.height, length)
+    WaterParticle(position, newForce, this.height + other.height)
   }
 }

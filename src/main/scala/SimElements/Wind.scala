@@ -13,7 +13,7 @@ case class Wind(private val direction: Vector2[Double], private val impact: Doub
   def apply(particle: WaterParticle): WaterParticle = {
     WaterParticle(particle.position,
       particle.force-particle.force*impact+direction*impact*Math.max(Math.min(particle.height*absoluteHeightImpact, maxHeightImpact), minHeightImpact),
-      particle.height, particle.length)
+      particle.height)
   }
 
   def +(other: Wind): Wind = {

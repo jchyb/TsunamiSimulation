@@ -3,7 +3,7 @@ package Visualisation
 import java.awt.Dimension
 
 import SimElements.World
-import Utils.Vector2
+import Utils.{Logger, Vector2}
 
 import scala.swing._
 import scala.swing.event.ValueChanged
@@ -13,7 +13,6 @@ object SetupScreen {
   private var waveStrength : Double = 50
   private var windStrength : Double = 50
   private var windImpact: Double = 0.001  //  TODO: Input windImpact
-  private var simulationTimeInSec : Double = 100
   private var wavePosition : Vector2[Int] = new Vector2[Int](0,0)
   private var windDirection: Vector2[Double] = new Vector2[Double](1, 100) // TODO: Input wind direction
   private var waiting : Boolean = true
@@ -46,6 +45,7 @@ object SetupScreen {
           reactions += {
             case ValueChanged(_) => {
               waveStrength = this.value
+              label.text = "Force: " + this.value.toString
             }
           }
         }
@@ -70,16 +70,19 @@ object SetupScreen {
 
       contents += new Button("Run with visualisation") {
         reactions += {case event.ButtonClicked(_) => {
-          print("read", waveStrength, windStrength)
-          world = new World(100,new RenderingFrame(world)) //TODO change
+          world = new World(100, new RenderingFrame(world))
           world.setWave(wavePosition, waveStrength/10)
-//          world.setWind(windDirection, windStrength)
           world.setWind(windDirection.normalise()*windStrength, windImpact)
           waiting = false
         }}
       }
       contents += new Button("Run with logger") {
-        reactions += {case event.ButtonClicked(_) => print("read", waveStrength, windStrength)}
+        reactions += {case event.ButtonClicked(_) => {
+          world = new World(100, new Logger())
+          world.setWave(wavePosition, waveStrength/10)
+          world.setWind(windDirection.normalise()*windStrength, windImpact)
+          waiting = false
+        }}
       }
       border = Swing.EmptyBorder(10, 10, 10, 10)
     }
