@@ -33,7 +33,7 @@ class Water() {
   }
 
   def applyWind(list: List[WaterParticle], wind: Wind): List[WaterParticle] = {
-    list.map(wind(_)) //  Should work?
+    list.map(wind(_))
   }
 
   //TODO Apply collision (after other objects and movement)
@@ -45,11 +45,11 @@ class Water() {
     val x = position.x
     val y = position.y
 
-    for (i <- -1 to 1; j <- -1 to 1) {
-      val newPosition = Vector2(x + i, y + j)
-      val newForce = Vector2(i, j)
+    for (j <- -20 to 20) {
+      val newPosition = Vector2(x, y + j)
+      val newForce = Vector2(0, j)
       if (newForce.length() != 0) {
-        val particle = WaterParticle(newPosition, Vector2(-1 * strength, 0 * strength), 10) //TODO placeholder values
+        val particle = WaterParticle(newPosition, Vector2(-1 * strength, 0 * strength), 10)
 
         waterMap.get(newPosition) match {
           case Some(particleIn) => waterMap.addOne(newPosition, particle + particleIn)

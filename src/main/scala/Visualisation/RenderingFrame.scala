@@ -22,26 +22,25 @@ class RenderingFrame(private val simulationWorld : World) extends Frame with Rec
       focusable = true
       listenTo(keys)
 
-      override def paint(g: Graphics2D) : Unit = {
-        g.setColor(Color.BLUE)
+      override def paint(g: Graphics2D) : Unit = draw(g)
 
-        if(entityIterable.nonEmpty) {
-          for (entity <- entityIterable) entity match {
-              case WaterParticle(position, force, height) => {
-                g.setColor(new Color(0,0,255, math.min((height*2000).toInt, 255)))
-                //g.setColor(Color.BLACK)
-                g.fillRect(position.x*2 + size.width/2, position.y*2 + size.height/2, 2, 2)
-              }
-            }
-
-        }
-      }
     }
     pack()
     centerOnScreen()
     open()
   }
 
+  def draw(g: Graphics2D) : Unit = {
+    if(entityIterable.nonEmpty) {
+      for (entity <- entityIterable) entity match {
+        case WaterParticle(position, force, height) => {
+          g.setColor(new Color(0,0,255, math.min((height*500).toInt, 255)))
+          //g.setColor(Color.BLACK)
+          g.fillRect(position.x*2 + size.width/2, position.y*2 + size.height/2, 2, 2)
+        }
+      }
+    }
+  }
   override def receive(list: Iterable[WorldEntity]): Unit = {
     this.entityIterable = list
     header.text = "Objects: ".concat(list.size.toString)
