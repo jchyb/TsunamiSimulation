@@ -6,20 +6,17 @@ import scala.collection.mutable
 
 class Water() {
 
-  private val filterConst = 0.01
+  private val minHeight = 0.01
   // Contains water particle data
   private val waterMap: mutable.HashMap[Vector2[Int], WaterParticle] = mutable.HashMap()
 
   // Apply water physics
   def update(deltaTime: Double, wind: Wind): Unit = {
-    var list = List[WaterParticle]()
+    var list: List[WaterParticle] = waterMap.values.filter(_.height>minHeight).toList.flatMap(_.update(deltaTime))
 
-    for (v <- waterMap.values) {
-      if(v.height > filterConst) list = List.concat(list, v.update(deltaTime))
-    }
 
     // apply wind
-    list = applyWind(list, wind)
+    list = list.map(wind(_))
 
     //apply collision
     list = applyCollision(list)
@@ -31,10 +28,6 @@ class Water() {
         case None => waterMap.addOne(particle.position, particle)
       }
     }
-  }
-
-  def applyWind(list: List[WaterParticle], wind: Wind): List[WaterParticle] = {
-    list.map(wind(_))
   }
 
   def applyCollision(list: List[WaterParticle]): List[WaterParticle] = {
