@@ -31,58 +31,66 @@ object SetupScreen {
 
     contents = new BoxPanel(Orientation.Vertical) {
       //border = (TitledBorder(EtchedBorder, "Radio Buttons"), EmptyBorder(5,5,5,10))
-      val settingsLabel = new Label("Wave settings:")
-      contents += settingsLabel
 
-      contents += new FlowPanel() {
 
-        val label: Label = new Label("Force: 50")
-        label.minimumSize = new swing.Dimension(30,30)
-        contents += label
+      contents += new GridBagPanel {
+        def constraints(x: Int, y: Int,
+                        gridwidth: Int = 1, gridheight: Int = 1,
+                        weightx: Double = 0.0, weighty: Double = 0.0,
+                        fill: GridBagPanel.Fill.Value = GridBagPanel.Fill.None)
+        : Constraints = {
+          val c = new Constraints
+          c.gridx = x
+          c.gridy = y
+          c.gridwidth = gridwidth
+          c.gridheight = gridheight
+          c.weightx = weightx
+          c.weighty = weighty
+          c.fill = fill
+          c
+        }
+        val windLabel : Label = new Label("Wind: 50")
+        val forceLabel : Label = new Label("Force: 50")
 
-        contents += new Slider() {
+        add(new Label("Wave Settings: "), constraints(0,0,gridwidth = 2))
+        add(forceLabel, constraints(0, 1, fill=GridBagPanel.Fill.Both))
+        add(windLabel, constraints(1, 1))
+        add(new Slider() {
           title = "Simulation"
           reactions += {
             case ValueChanged(_) => {
               waveStrength = this.value
-              label.text = "Force: " + this.value.toString
+              forceLabel.text = "Force: " + this.value.toString
             }
           }
-        }
-      }
-        //TODO - nie spełnia DRY - dokładnie to co wyżej
-        contents += new FlowPanel(){
+        }, constraints(0, 2))
 
-          val label : Label = new Label("Wind: 50")
-          label.minimumSize = new swing.Dimension(30,30)
-          contents += label
-
-          contents += new Slider() {
-            title = "Simulation"
-            reactions += {
-              case ValueChanged(_) => {
-                windStrength = this.value
-                label.text = "Wind: " + this.value.toString
-              }
+        add(new Slider() {
+          reactions += {
+            case ValueChanged(_) => {
+              windStrength = this.value
+              windLabel.text = "Wind: " + this.value.toString
             }
           }
-      }
+        }, constraints(1, 2))
 
-      contents += new Button("Run with visualisation") {
-        reactions += {case event.ButtonClicked(_) => {
-          world = new World(100, new RenderingFrame(world))
-          world.setWave(wavePosition, waveStrength/10)
-          world.setWind(windDirection.normalise()*windStrength, windImpact)
-          waiting = false
-        }}
-      }
-      contents += new Button("Run with logger") {
-        reactions += {case event.ButtonClicked(_) => {
-          world = new World(100, new Logger())
-          world.setWave(wavePosition, waveStrength/10)
-          world.setWind(windDirection.normalise()*windStrength, windImpact)
-          waiting = false
-        }}
+        add(new Button("Run with visualisation") {
+          reactions += {case event.ButtonClicked(_) => {
+            world = new World(100, new RenderingFrame(world))
+            world.setWave(wavePosition, waveStrength/10)
+            world.setWind(windDirection.normalise()*windStrength, windImpact)
+            waiting = false
+          }}
+        }, constraints(0,3,gridwidth = 2))
+
+        add(new Button("Run with logger") {
+          reactions += {case event.ButtonClicked(_) => {
+            world = new World(100, new Logger())
+            world.setWave(wavePosition, waveStrength/10)
+            world.setWind(windDirection.normalise()*windStrength, windImpact)
+            waiting = false
+          }}
+        }, constraints(0,4,gridwidth = 2))
       }
       border = Swing.EmptyBorder(10, 10, 10, 10)
     }

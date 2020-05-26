@@ -27,13 +27,4 @@ case class Vector2[T](x: T, y: T)(implicit num: Numeric[T]) {
 
   override def toString: String = "("+this.x.toString+","+this.y.toString+")"
 
-  /*override def equals(other: Any): Boolean = { //Chyba się przyda do mapy?
-    if(!other.isInstanceOf[Vector2[T]]) false
-    else {
-      val otherAsInstance = other.asInstanceOf[Vector2[T]]
-      return this.x == otherAsInstance.x && this.y == otherAsInstance.y
-    }
-  }
-
-  override def hashCode: Int = (31 * this.x.toDouble + 17 * this.y.toDouble).toInt*/
 }

@@ -10,10 +10,8 @@ case class WaterParticle(position: Vector2[Int], force: Vector2[Double], height:
   def update(deltaTime: Double): List[WaterParticle] = {
     /* Divides and moves the particle according to force strength and direction.
     Returns a list of newly created particles. */
-
     spill(deltaTime)
   }
-
 
   def spill(deltaTime: Double): List[WaterParticle] ={
     var newParticles = List[WaterParticle]()

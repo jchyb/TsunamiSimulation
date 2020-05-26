@@ -37,7 +37,6 @@ class Water() {
     list.map(wind(_))
   }
 
-  //TODO Apply collision (after other objects and movement)
   def applyCollision(list: List[WaterParticle]): List[WaterParticle] = {
     list
   }
@@ -46,7 +45,7 @@ class Water() {
     val x = position.x
     val y = position.y
 
-    for (j <- -40 to 40) {
+    for (j <- -50 to 50) {
       val newPosition = Vector2(x, y + j)
       val newForce = Vector2(0, j)
       if (newForce.length() != 0) {

@@ -19,8 +19,8 @@ class World(private val simTime : Int, receiver : Receiver){
     val deltaTime = 1
     for(i <- 0 to simTime){
       water.update(deltaTime, wind)
-      receiver.receive(water.toIterable())
-      Thread.sleep(1000)
+      receiver.receive(water.toIterable)
+      Thread.sleep(100)
     }
   }
 }
