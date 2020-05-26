@@ -6,6 +6,7 @@ import scala.collection.mutable
 
 class Water() {
 
+  private val filterConst = 0.01
   // Contains water particle data
   private val waterMap: mutable.HashMap[Vector2[Int], WaterParticle] = mutable.HashMap()
 
@@ -14,7 +15,7 @@ class Water() {
     var list = List[WaterParticle]()
 
     for (v <- waterMap.values) {
-      list = List.concat(list, v.update(deltaTime))
+      if(v.height > filterConst) list = List.concat(list, v.update(deltaTime))
     }
 
     // apply wind
@@ -45,7 +46,7 @@ class Water() {
     val x = position.x
     val y = position.y
 
-    for (j <- -20 to 20) {
+    for (j <- -40 to 40) {
       val newPosition = Vector2(x, y + j)
       val newForce = Vector2(0, j)
       if (newForce.length() != 0) {
