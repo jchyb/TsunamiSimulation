@@ -9,7 +9,6 @@ class SetSuite extends AnyFunSuite {
     assert(Vector2[Double](0,4).normalise() == Vector2(0,1))
     assert(Vector2[Int](0,4).normalise() != Vector2(0,2))
   }
-
   test("Arithmetic Vector2") {
     assert(Vector2[Double](1, 5) + Vector2[Double](-3, -4) == Vector2[Double](-2, 1))
     assert(Vector2[Int](1, 5) - Vector2[Int](-3, -4) == Vector2[Int](4, 9))
