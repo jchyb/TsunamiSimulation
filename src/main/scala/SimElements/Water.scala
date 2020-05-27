@@ -4,7 +4,7 @@ import Utils.Vector2
 
 import scala.collection.mutable
 
-class Water(private val breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater] = mutable.HashMap()) {
+class Water(private val shore: Shore, private val breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater] = mutable.HashMap()) {
   // Contains breakWaters
 
   private val minHeight = 0.01
@@ -18,6 +18,8 @@ class Water(private val breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater
 
     // apply wind
     list = list.map(wind(_))
+
+    list = list.map(shore(_))
 
     //apply collision
     list = applyCollision(list)

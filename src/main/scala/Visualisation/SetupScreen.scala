@@ -116,6 +116,7 @@ object SetupScreen {
     if(world != null) world.stop()
 
     world = new World(steps, receiver)
+    world.initShore()
     world.initBreakwaters()
     world.setWind(windDirection.normalise()*windStrength, windImpact)
     world.setWave(wavePosition, waveStrength/10)

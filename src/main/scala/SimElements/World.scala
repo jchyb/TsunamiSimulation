@@ -7,12 +7,17 @@ import scala.collection.mutable
 class World(private val steps : Int, receiver : Receiver){
   var water : Water = _
   var wind : Wind = _ //TODO: changing wind
+  var shore : Shore = _
   var breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater] = _
   var running = true
 
   def initBreakwaters(list: List[(Vector2[Int], Double, Double)] = List((Vector2[Int](-50, 0), 5, 10))): Unit = {
     breakwatersMap = mutable.HashMap()
     list.foreach(e => addBreakwater(e._1, e._2, e._3))
+  }
+
+  def initShore(func: WaterParticle => WaterParticle = identity): Unit = {
+    shore = new Shore(func)
   }
 
   // only before setWave
@@ -24,7 +29,7 @@ class World(private val steps : Int, receiver : Receiver){
   }
 
   def setWave(wavePosition : Vector2[Int], waveStrength : Double): Unit = {
-    water = new Water(breakwatersMap)
+    water = new Water(shore, breakwatersMap)
     water.initiateWave(wavePosition, waveStrength)
   }
 
