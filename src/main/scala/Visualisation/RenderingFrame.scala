@@ -46,4 +46,7 @@ class RenderingFrame(private val simulationWorld : World) extends Frame with Rec
     header.text = "Objects: "+ list.size.toString
     repaint()
   }
+  override def closeOperation(): Unit = {
+    visible = false
+  }
 }

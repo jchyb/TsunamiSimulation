@@ -21,9 +21,11 @@ object SetupScreen {
   private var skip : Int = 1 // skip (1/skip) steps
 
   def main(args: Array[String]): Unit = {
-    while(waiting) Thread.sleep(1000)
-    println("ok")
-    world.run(skip)
+    while(true) {
+      while (waiting) Thread.sleep(1000)
+      waiting = true
+      world.run(skip)
+    }
   }
 
   new Frame {
@@ -111,6 +113,8 @@ object SetupScreen {
   }
 
   def makeWorld(receiver : Receiver) : World = {
+    if(world != null) world.stop()
+
     world = new World(steps, receiver)
     world.initBreakwaters()
     world.setWind(windDirection.normalise()*windStrength, windImpact)

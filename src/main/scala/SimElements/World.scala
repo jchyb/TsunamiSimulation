@@ -8,6 +8,7 @@ class World(private val steps : Int, receiver : Receiver){
   var water : Water = _
   var wind : Wind = _ //TODO: changing wind
   var breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater] = _
+  var running = true
 
   def initBreakwaters(list: List[(Vector2[Int], Double, Double)] = List((Vector2[Int](-50, 0), 5, 10))): Unit = {
     breakwatersMap = mutable.HashMap()
@@ -39,8 +40,11 @@ class World(private val steps : Int, receiver : Receiver){
         receiver.receive(toIterable)
         Thread.sleep(100)
       }
+      if(!running) return
     }
   }
+  def stop() : Unit ={ running = false }
+
   def toIterable: Iterable[WorldEntity] = {
     water.toIterable ++ breakwatersMap.values.toSet
   }
