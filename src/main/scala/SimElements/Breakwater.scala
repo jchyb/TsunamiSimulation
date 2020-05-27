@@ -2,7 +2,7 @@ package SimElements
 
 import Utils.Vector2
 
-case class Breakwater(private val position: Vector2[Int], private val radius: Double, private val height: Double) {
+case class Breakwater(private val position: Vector2[Int], private val radius: Double, private val height: Double) extends WorldEntity {
   // position of the middle, radius and height of circular breakwater
   // how collision with breakwater impacts water's force
   val modifier: Double = 0.1

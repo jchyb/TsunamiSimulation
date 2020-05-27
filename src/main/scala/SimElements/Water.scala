@@ -8,14 +8,13 @@ class Water(private val breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater
   // Contains breakWaters
 
   private val minHeight = 0.01
+
   // Contains water particle data
   private val waterMap: mutable.HashMap[Vector2[Int], WaterParticle] = mutable.HashMap()
-
 
   // Apply water physics
   def update(deltaTime: Double, wind: Wind): Unit = {
     var list: List[WaterParticle] = waterMap.values.filter(_.height>minHeight).toList.flatMap(_.update(deltaTime))
-
 
     // apply wind
     list = list.map(wind(_))
@@ -44,7 +43,6 @@ class Water(private val breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater
   }
 
   def initiateWave(position: Vector2[Int], strength: Double): Unit = {
-
 
     val x = position.x
     val y = position.y

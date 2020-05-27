@@ -12,6 +12,7 @@ object SetupScreen {
 
   private var waveStrength : Double = 50
   private var windStrength : Double = 50
+  private var steps : Double = 50
   private var windImpact: Double = 0.001  //  TODO: Input windImpact
   private var wavePosition : Vector2[Int] = new Vector2[Int](0,0)
   private var windDirection: Vector2[Double] = new Vector2[Double](1, 100) // TODO: Input wind direction
@@ -74,6 +75,15 @@ object SetupScreen {
           }
         }, constraints(1, 2))
 
+        add(new Slider() {
+          reactions += {
+            case ValueChanged(_) => {
+              windStrength = this.value
+              windLabel.text = "Wind: " + this.value.toString
+            }
+          }
+        }, constraints(0, 3, gridwidth = 2))
+
         add(new Button("Run with visualisation") {
           reactions += {case event.ButtonClicked(_) => {
             world = new World(100, new RenderingFrame(world))
@@ -82,7 +92,7 @@ object SetupScreen {
             world.setWave(wavePosition, waveStrength/10)
             waiting = false
           }}
-        }, constraints(0,3,gridwidth = 2))
+        }, constraints(0,4,gridwidth = 2))
 
         add(new Button("Run with logger") {
           reactions += {case event.ButtonClicked(_) => {
@@ -92,7 +102,7 @@ object SetupScreen {
             world.setWave(wavePosition, waveStrength/10)
             waiting = false
           }}
-        }, constraints(0,4,gridwidth = 2))
+        }, constraints(0,5,gridwidth = 2))
       }
       border = Swing.EmptyBorder(10, 10, 10, 10)
     }

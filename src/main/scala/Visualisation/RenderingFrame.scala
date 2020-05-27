@@ -2,7 +2,7 @@ package Visualisation
 
 import java.awt.Color
 
-import SimElements.{Receiver, WaterParticle, World, WorldEntity}
+import SimElements.{Breakwater, Receiver, WaterParticle, World, WorldEntity}
 
 import scala.swing.{BoxPanel, Dimension, Frame, Graphics2D, Label, Orientation, Panel, Swing}
 
@@ -28,14 +28,21 @@ class RenderingFrame(private val simulationWorld : World) extends Frame with Rec
   }
 
   def draw(g: Graphics2D) : Unit = {
+
     if(entityIterable.nonEmpty) {
       for (entity <- entityIterable) entity match {
         case WaterParticle(position, force, height) => {
           g.setColor(new Color(0,0,255, math.min((height*500).toInt, 255)))
           g.fillRect(position.x*2 + size.width/2, position.y*2 + size.height/2, 2, 2)
         }
+        case Breakwater(position, radius, height) => {
+          println("lux")
+          g.setColor(Color.BLACK)
+          g.fillOval((position.x-radius).toInt*2 + size.width/2, (position.y-radius).toInt*2 + size.height/2, radius.toInt*4, radius.toInt*4)
+        }
       }
     }
+
   }
   override def receive(list: Iterable[WorldEntity]): Unit = {
     this.entityIterable = list
