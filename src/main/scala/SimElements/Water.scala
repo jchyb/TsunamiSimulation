@@ -25,12 +25,11 @@ class Water(private val shore: Shore, private val breakwatersMap: mutable.HashMa
     list = applyCollision(list)
 
     waterMap.clear()
-    for (particle <- list){
+    list.foreach(particle =>{
       waterMap.get(particle.position) match {
         case Some(particleIn) => waterMap.addOne(particle.position, particle + particleIn)
         case None => waterMap.addOne(particle.position, particle)
-      }
-    }
+      }})
   }
 
   def applyCollision(list: List[WaterParticle]): List[WaterParticle] = {
