@@ -29,6 +29,6 @@ case class Vector2[T](x: T, y: T)(implicit num: Numeric[T]) {
 
   def double(): Vector2[Double] = Vector2(this.x.toDouble, this.y.toDouble)
 
-  override def toString: String = "("+this.x.toString+","+this.y.toString+")"
+  override def toString: String = "("+this.x.toString+", "+this.y.toString+")"
 
 }

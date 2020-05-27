@@ -13,9 +13,9 @@ object SetupScreen {
   private var waveStrength : Double = 50
   private var windStrength : Double = 50
   private var steps : Int = 50
-  private var windImpact: Double = 0.001  //  TODO: Input windImpact
+  private var windImpact: Double = 0.001
   private var wavePosition : Vector2[Int] = new Vector2[Int](0,0)
-  private var windDirection: Vector2[Double] = new Vector2[Double](1, 100) // TODO: Input wind direction
+  private var windDirection: Vector2[Double] = new Vector2[Double](1, 100)
   private var waiting : Boolean = true
   private var world : World = _
   private var shoreStart: Int = -100 //-200
@@ -58,6 +58,7 @@ object SetupScreen {
         val windLabel : Label = new Label("Wind: 50")
         val forceLabel : Label = new Label("Force: 50")
         val stepLabel : Label = new Label("Steps: 50")
+        val windDirLabel : Label = new Label("Wind direction: " + windDirection.toString)
 
         add(new Label("Wave Settings: "), constraints(0,0,gridwidth = 2))
         add(forceLabel, constraints(0, 1, fill=GridBagPanel.Fill.Both))
@@ -88,19 +89,35 @@ object SetupScreen {
           }
         }, constraints(0, 4, gridwidth = 2))
 
+        add(windDirLabel, constraints(0,5,gridwidth = 2))
+        add(new TextField(windDirection.x.toString, 10){
+          reactions += {
+            case ValueChanged(_) =>
+              windDirection = Vector2(this.text.toDouble, windDirection.y)
+              windDirLabel.text = "Wind direction: " + windDirection.toString
+          }
+        }, constraints(0, 6))
+        add(new TextField(windDirection.y.toString, 10){
+          reactions += {
+            case ValueChanged(_) =>
+              windDirection = Vector2(windDirection.x, this.text.toDouble)
+              windDirLabel.text = "Wind direction: " + windDirection.toString
+          }
+        }, constraints(1, 6))
+
         add(new Button("Run with visualisation") {
           reactions += {case event.ButtonClicked(_) =>
             makeWorld(new RenderingFrame(world))
             waiting = false
           }
-        }, constraints(0,5,gridwidth = 2))
+        }, constraints(0,7,gridwidth = 2))
 
         add(new Button("Run with logger") {
           reactions += {case event.ButtonClicked(_) =>
             makeWorld(new Logger())
             waiting = false
           }
-        }, constraints(0,6,gridwidth = 2))
+        }, constraints(0,8,gridwidth = 2))
       }
       border = Swing.EmptyBorder(10, 10, 10, 10)
     }
