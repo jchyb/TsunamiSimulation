@@ -6,10 +6,4 @@ scalaVersion := "2.13.2"
 
 libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "2.1.1"
 
-val circeVersion = "0.12.3"
-
-libraryDependencies ++= Seq(
-  "io.circe" %% "circe-core",
-  "io.circe" %% "circe-generic",
-  "io.circe" %% "circe-parser"
-).map(_ % circeVersion)
+libraryDependencies += "org.scalatest" % "scalatest_2.13" % "3.1.2" % "test"

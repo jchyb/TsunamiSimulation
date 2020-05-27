@@ -132,7 +132,6 @@ object SetupScreen {
     if(world != null) world.stop()
 
     world = new World(steps, receiver)
-//    world.initShore()
     world.initShore(e => if (e.position.x>shoreStart) e else
       WaterParticle(e.position, e.force+Vector2(1, 0)*(shoreStart-e.position.x)*shoreSteepness, e.height))
     world.initBreakwaters()
