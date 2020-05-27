@@ -6,7 +6,7 @@ import scala.collection.mutable
 
 class World(private val steps : Int, receiver : Receiver){
   var water : Water = _
-  var wind : Wind = _ //TODO: changing wind
+  var wind : Wind = _
   var shore : Shore = _
   var breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater] = _
   var running = true

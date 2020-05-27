@@ -2,29 +2,28 @@ package Visualisation
 
 import java.awt.Color
 
-import SimElements.{Breakwater, Receiver, WaterParticle, World, WorldEntity}
+import SimElements._
 
-import scala.swing.{BoxPanel, Dimension, Frame, Graphics2D, Label, Orientation, Panel, Swing}
+import scala.swing.{BoxPanel, Dimension, Frame, Graphics2D, Orientation, Panel}
 
 class RenderingFrame(private val simulationWorld : World) extends Frame with Receiver {
 
   private var entityIterable : Iterable[WorldEntity] = Iterable[WorldEntity]()
-  private var header = new Label("Step 0/")
-
+  title = "Visualisation"
+  resizable = false
   contents = new BoxPanel(Orientation.Vertical){
-    contents += header
     contents += new Panel {
       preferredSize = new Dimension(700, 400)
       focusable = true
-      listenTo(keys)
-      border=Swing.EtchedBorder(Swing.Lowered)
       override def paint(g: Graphics2D) : Unit = draw(g)
     }
-    pack()
     open()
   }
 
   def draw(g: Graphics2D) : Unit = {
+    //draw shore
+    g.setColor(Color.ORANGE)
+    g.fillRect(-200*2  + size.width/2,-100*2  + size.height/2,100*2  ,200*2)
 
     if(entityIterable.nonEmpty) {
       for (entity <- entityIterable) entity match {
@@ -40,13 +39,13 @@ class RenderingFrame(private val simulationWorld : World) extends Frame with Rec
     }
   }
 
-  override def receive(list: Iterable[WorldEntity]): Unit = {
-    this.entityIterable = list
-    header.text = "Objects: "+ list.size.toString
+  override def receive(iterable: Iterable[WorldEntity]): Unit = {
+    this.entityIterable = iterable
     repaint()
   }
   override def closeOperation(): Unit = {
     visible = false
   }
+  pack()
   centerOnScreen()
 }
