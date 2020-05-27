@@ -93,14 +93,14 @@ object SetupScreen {
         add(new TextField(windDirection.x.toString, 10){
           reactions += {
             case ValueChanged(_) =>
-              windDirection = Vector2(this.text.toDouble, windDirection.y)
+              windDirection = Vector2(this.text.toDoubleOption.getOrElse(windDirection.x), windDirection.y)
               windDirLabel.text = "Wind direction: " + windDirection.toString
           }
         }, constraints(0, 6))
         add(new TextField(windDirection.y.toString, 10){
           reactions += {
             case ValueChanged(_) =>
-              windDirection = Vector2(windDirection.x, this.text.toDouble)
+              windDirection = Vector2(windDirection.x, this.text.toDoubleOption.getOrElse(windDirection.y))
               windDirLabel.text = "Wind direction: " + windDirection.toString
           }
         }, constraints(1, 6))
