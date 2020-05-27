@@ -25,9 +25,9 @@ case class Vector2[T](x: T, y: T)(implicit num: Numeric[T]) {
   def normalise(): Vector2[Double] =
     Vector2(this.x.toDouble / length(), this.y.toDouble / length())
 
-  def int(): Vector2[Int] = Vector2[Int](this.x.toInt, this.y.toInt)
+  def int(): Vector2[Int] = Vector2(this.x.toInt, this.y.toInt)
 
-  def double(): Vector2[Double] = Vector2[Double](this.x.toDouble, this.y.toDouble)
+  def double(): Vector2[Double] = Vector2(this.x.toDouble, this.y.toDouble)
 
   override def toString: String = "("+this.x.toString+","+this.y.toString+")"
 

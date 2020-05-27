@@ -14,6 +14,11 @@ case class Breakwater(private val position: Vector2[Int], private val radius: Do
       list = WaterParticle(particle.position, particle.force, particle.height-this.height)::list
       collided = WaterParticle(particle.position, particle.force, this.height)
     }
+    if (collided.position==this.position) {
+      val norm: Vector2[Double] = -particle.force.normalise()
+      val mov: Vector2[Int] = Vector2((norm.x.sign*1).toInt, (norm.y.sign*1).toInt)
+      collided = WaterParticle(particle.position+mov, particle.force, this.height)
+    }
     val newPosition: Vector2[Int] = this.firstFree(collided)
     val newForce: Vector2[Double] = this.impact(collided)
     list = WaterParticle(newPosition, newForce, collided.height)::list
@@ -22,7 +27,7 @@ case class Breakwater(private val position: Vector2[Int], private val radius: Do
 
   def firstFree(particle: WaterParticle): Vector2[Int] = {
     val toOut: Vector2[Int] = particle.position-this.position
-    (toOut.normalise()*(this.radius+1)).int()
+    this.position+(toOut.normalise()*(this.radius+1)).int()
   }
 
   def impact(particle: WaterParticle): Vector2[Double] = {

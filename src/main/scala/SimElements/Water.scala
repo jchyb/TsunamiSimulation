@@ -36,10 +36,11 @@ class Water(private val breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater
     for (particle <- list){
       breakwatersMap.get(particle.position) match {
         case Some(breakwater) => res = res.concat(breakwater.collide(particle))
-        case None => particle::res
+        case None => res = particle::res
       }
     }
     res
+//    list
   }
 
   def initiateWave(position: Vector2[Int], strength: Double): Unit = {
