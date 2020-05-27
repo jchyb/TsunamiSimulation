@@ -27,7 +27,8 @@ case class Breakwater(private val position: Vector2[Int], private val radius: Do
 
   def firstFree(particle: WaterParticle): Vector2[Int] = {
     val toOut: Vector2[Int] = particle.position-this.position
-    this.position+(toOut.normalise()*(this.radius+1)).int()
+    val tmp: Vector2[Double] = toOut.normalise()*this.radius
+    this.position + Vector2[Int](tmp.x.ceil.toInt, tmp.y.ceil.toInt)
   }
 
   def impact(particle: WaterParticle): Vector2[Double] = {

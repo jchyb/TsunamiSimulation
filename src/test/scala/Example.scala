@@ -48,6 +48,10 @@ class SetSuite extends AnyFunSuite {
   }
   val shore: Shore = new Shore(e => if (e.position.x>0) e else
     WaterParticle(e.position, e.force + Vector2(1, 0)*(0-e.position.x), e.height))
+  test("Test Shore"){
+    assert(shore(WaterParticle(pos, force, height)).force == force)
+    assert(shore(WaterParticle(-pos, force, height)).force != force)
+  }
   test("Invoking head on an empty Set should produce NoSuchElementException") {
     assertThrows[NoSuchElementException] {
       Set.empty.head
