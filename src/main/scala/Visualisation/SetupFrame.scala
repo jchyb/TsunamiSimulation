@@ -21,7 +21,7 @@ object SetupFrame {
   private var shoreStart: Int = -100 //-200
   private var shoreSteepness: Double = 0.01 //0.1
   private var skip : Int = 1 // skip (1/skip) steps
-  private var breakWaterSize : Double = 8
+  private var breakWaterSize : Double = 5
   private var breakWaterAmount : Int = 5
 
   def main(args: Array[String]): Unit = {
@@ -113,7 +113,7 @@ object SetupFrame {
         add(new Slider() {
           reactions += {
             case ValueChanged(_) =>
-              breakWaterSize = (this.value)/20.0 + 5
+              breakWaterSize = (this.value)/10.0
               breakWaterSizeLabel.text = "Breakwater Size: " + breakWaterSize.toString
           }
         }, constraints(0, 8))
