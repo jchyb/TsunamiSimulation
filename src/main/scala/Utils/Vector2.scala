@@ -8,7 +8,7 @@ case class Vector2[T](x: T, y: T)(implicit num: Numeric[T]) {
 
   def -(other: Vector2[T]): Vector2[T] = new Vector2[T](num.minus(this.x, other.x), num.minus(this.y, other.y))
 
-  def unary_-() = new Vector2[T](num.negate(this.x), num.negate(this.x))
+  def unary_-() = new Vector2[T](num.negate(this.x), num.negate(this.y))
 
   def *(scalar: Double): Vector2[Double] =
     new Vector2[Double](this.x.toDouble * scalar, this.y.toDouble * scalar)
