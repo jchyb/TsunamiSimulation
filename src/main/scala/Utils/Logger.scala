@@ -1,6 +1,6 @@
 package Utils
 
-import SimElements.{Receiver, WaterParticle, WorldEntity}
+import SimElements.{Breakwater, Receiver, WaterParticle, WorldEntity}
 
 class Logger extends Receiver{
   var received : Int = 0
@@ -12,6 +12,9 @@ class Logger extends Receiver{
         case WaterParticle(position, force, height)
           => println("W, position: " + position.toString
                      + ", force: " + force.toString + ", height: " + height.toString)
+        case Breakwater(position, radius, height)
+          => println("B, position: " + position.toString
+                     + ", radius: " + radius.toString + ", height: " + height.toString)
       }
     }
   }
