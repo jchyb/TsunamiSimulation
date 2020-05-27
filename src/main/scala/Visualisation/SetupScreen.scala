@@ -2,7 +2,7 @@ package Visualisation
 
 import java.awt.Dimension
 
-import SimElements.{Receiver, World}
+import SimElements.{Receiver, WaterParticle, World}
 import Utils.{Logger, Vector2}
 
 import scala.swing._
@@ -18,6 +18,8 @@ object SetupScreen {
   private var windDirection: Vector2[Double] = new Vector2[Double](1, 100) // TODO: Input wind direction
   private var waiting : Boolean = true
   private var world : World = _
+  private var shoreStart: Int = -10 //-200
+  private var shoreSteepness: Double = 1 //0.1
   private var skip : Int = 1 // skip (1/skip) steps
 
   def main(args: Array[String]): Unit = {
@@ -116,7 +118,9 @@ object SetupScreen {
     if(world != null) world.stop()
 
     world = new World(steps, receiver)
-    world.initShore()
+//    world.initShore()
+    world.initShore(e => if (e.position.x>shoreStart) e else
+      WaterParticle(e.position, e.force+Vector2(1, 0)*(shoreStart-e.position.x)*shoreSteepness, e.height))
     world.initBreakwaters()
     world.setWind(windDirection.normalise()*windStrength, windImpact)
     world.setWave(wavePosition, waveStrength/10)
