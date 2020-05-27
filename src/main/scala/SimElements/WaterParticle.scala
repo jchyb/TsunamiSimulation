@@ -19,7 +19,7 @@ case class WaterParticle(position: Vector2[Int], force: Vector2[Double], height:
     val centralPosition = new Vector2[Int]((position.x + (force.x * deltaTime)).toInt,
       (position.y + (force.y * deltaTime)).toInt)
 
-    val heightDifferenceImpact = 1.0/5
+    val heightDifferenceImpact = 0.05
     val maxLevel = 1
     for (i <- -maxLevel to maxLevel; j <- -maxLevel to maxLevel) {
 
