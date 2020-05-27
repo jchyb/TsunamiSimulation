@@ -4,11 +4,13 @@ import Utils.Vector2
 
 import scala.collection.mutable
 
-class Water() {
+class Water(private val breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater] = mutable.HashMap()) {
+  // Contains breakWaters
 
   private val minHeight = 0.01
   // Contains water particle data
   private val waterMap: mutable.HashMap[Vector2[Int], WaterParticle] = mutable.HashMap()
+
 
   // Apply water physics
   def update(deltaTime: Double, wind: Wind): Unit = {
@@ -35,6 +37,8 @@ class Water() {
   }
 
   def initiateWave(position: Vector2[Int], strength: Double): Unit = {
+
+
     val x = position.x
     val y = position.y
 
