@@ -1,2 +1,2 @@
 package SimElements
-abstract class WorldEntity
+sealed trait WorldEntity
