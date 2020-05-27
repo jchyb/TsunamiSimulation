@@ -13,14 +13,12 @@ class RenderingFrame(private val simulationWorld : World) extends Frame with Rec
 
   contents = new BoxPanel(Orientation.Vertical){
     contents += header
-
     contents += new Panel {
       preferredSize = new Dimension(700, 400)
       focusable = true
       listenTo(keys)
       border=Swing.EtchedBorder(Swing.Lowered)
       override def paint(g: Graphics2D) : Unit = draw(g)
-
     }
     pack()
     centerOnScreen()
@@ -36,18 +34,16 @@ class RenderingFrame(private val simulationWorld : World) extends Frame with Rec
           g.fillRect(position.x*2 + size.width/2, position.y*2 + size.height/2, 2, 2)
         }
         case Breakwater(position, radius, height) => {
-          println("lux")
           g.setColor(Color.BLACK)
           g.fillOval((position.x-radius).toInt*2 + size.width/2, (position.y-radius).toInt*2 + size.height/2, radius.toInt*4, radius.toInt*4)
         }
       }
     }
-
   }
+
   override def receive(list: Iterable[WorldEntity]): Unit = {
     this.entityIterable = list
     header.text = "Objects: "+ list.size.toString
     repaint()
   }
-
 }

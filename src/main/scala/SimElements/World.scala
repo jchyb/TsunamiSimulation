@@ -4,7 +4,7 @@ import Utils.Vector2
 
 import scala.collection.mutable
 
-class World(private val simTime : Int, receiver : Receiver){
+class World(private val steps : Int, receiver : Receiver){
   var water : Water = _
   var wind : Wind = _ //TODO: changing wind
   var breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater] = _
@@ -33,7 +33,7 @@ class World(private val simTime : Int, receiver : Receiver){
 
   def run(skip: Int = 1): Unit = {
     val deltaTime = 1
-    for(i <- 0 to simTime){
+    for(i <- 0 to steps){
       water.update(deltaTime, wind)
       if(i%skip==0) {
         receiver.receive(toIterable)
@@ -42,6 +42,6 @@ class World(private val simTime : Int, receiver : Receiver){
     }
   }
   def toIterable: Iterable[WorldEntity] = {
-    water.toIterable ++ breakwatersMap.values
+    water.toIterable ++ breakwatersMap.values.toSet
   }
 }

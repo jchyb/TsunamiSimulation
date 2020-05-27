@@ -2,7 +2,7 @@ package Visualisation
 
 import java.awt.Dimension
 
-import SimElements.World
+import SimElements.{Receiver, World}
 import Utils.{Logger, Vector2}
 
 import scala.swing._
@@ -12,7 +12,7 @@ object SetupScreen {
 
   private var waveStrength : Double = 50
   private var windStrength : Double = 50
-  private var steps : Double = 50
+  private var steps : Int = 50
   private var windImpact: Double = 0.001  //  TODO: Input windImpact
   private var wavePosition : Vector2[Int] = new Vector2[Int](0,0)
   private var windDirection: Vector2[Double] = new Vector2[Double](1, 100) // TODO: Input wind direction
@@ -53,6 +53,7 @@ object SetupScreen {
         }
         val windLabel : Label = new Label("Wind: 50")
         val forceLabel : Label = new Label("Force: 50")
+        val stepLabel : Label = new Label("Steps: 50")
 
         add(new Label("Wave Settings: "), constraints(0,0,gridwidth = 2))
         add(forceLabel, constraints(0, 1, fill=GridBagPanel.Fill.Both))
@@ -76,34 +77,29 @@ object SetupScreen {
           }
         }, constraints(1, 2))
 
+        add(stepLabel,constraints(0,3,gridwidth = 2))
         add(new Slider() {
           reactions += {
             case ValueChanged(_) => {
-              windStrength = this.value
-              windLabel.text = "Wind: " + this.value.toString
+              steps = this.value
+              stepLabel.text = "Steps: " + this.value.toString
             }
           }
-        }, constraints(0, 3, gridwidth = 2))
+        }, constraints(0, 4, gridwidth = 2))
 
         add(new Button("Run with visualisation") {
           reactions += {case event.ButtonClicked(_) => {
-            world = new World(100, new RenderingFrame(world))
-            world.initBreakwaters()
-            world.setWind(windDirection.normalise()*windStrength, windImpact)
-            world.setWave(wavePosition, waveStrength/10)
-            waiting = false
-          }}
-        }, constraints(0,4,gridwidth = 2))
-
-        add(new Button("Run with logger") {
-          reactions += {case event.ButtonClicked(_) => {
-            world = new World(100, new Logger())
-            world.initBreakwaters()
-            world.setWind(windDirection.normalise()*windStrength, windImpact)
-            world.setWave(wavePosition, waveStrength/10)
+            makeWorld(new RenderingFrame(world))
             waiting = false
           }}
         }, constraints(0,5,gridwidth = 2))
+
+        add(new Button("Run with logger") {
+          reactions += {case event.ButtonClicked(_) => {
+            makeWorld(new Logger())
+            waiting = false
+          }}
+        }, constraints(0,6,gridwidth = 2))
       }
       border = Swing.EmptyBorder(10, 10, 10, 10)
     }
@@ -112,6 +108,14 @@ object SetupScreen {
     pack()
     centerOnScreen()
     open()
+  }
+
+  def makeWorld(receiver : Receiver) : World = {
+    world = new World(steps, receiver)
+    world.initBreakwaters()
+    world.setWind(windDirection.normalise()*windStrength, windImpact)
+    world.setWave(wavePosition, waveStrength/10)
+    world
   }
 
 }

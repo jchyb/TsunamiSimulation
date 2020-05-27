@@ -40,7 +40,6 @@ class Water(private val breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater
       }
     }
     res
-//    list
   }
 
   def initiateWave(position: Vector2[Int], strength: Double): Unit = {
