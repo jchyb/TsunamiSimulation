@@ -77,8 +77,9 @@ object SetupScreen {
         add(new Button("Run with visualisation") {
           reactions += {case event.ButtonClicked(_) => {
             world = new World(100, new RenderingFrame(world))
-            world.setWave(wavePosition, waveStrength/10)
+            world.initBreakwaters()
             world.setWind(windDirection.normalise()*windStrength, windImpact)
+            world.setWave(wavePosition, waveStrength/10)
             waiting = false
           }}
         }, constraints(0,3,gridwidth = 2))
@@ -86,8 +87,9 @@ object SetupScreen {
         add(new Button("Run with logger") {
           reactions += {case event.ButtonClicked(_) => {
             world = new World(100, new Logger())
-            world.setWave(wavePosition, waveStrength/10)
+            world.initBreakwaters()
             world.setWind(windDirection.normalise()*windStrength, windImpact)
+            world.setWave(wavePosition, waveStrength/10)
             waiting = false
           }}
         }, constraints(0,4,gridwidth = 2))

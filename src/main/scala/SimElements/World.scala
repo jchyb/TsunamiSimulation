@@ -9,8 +9,9 @@ class World(private val simTime : Int, receiver : Receiver){
   var wind : Wind = _ //TODO: changing wind
   var breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater] = _
 
-  def initBreakwaters(): Unit = {
+  def initBreakwaters(list: List[(Vector2[Int], Double, Double)] = List((Vector2[Int](10, 10), 3, 10))): Unit = {
     breakwatersMap = mutable.HashMap()
+    list.foreach(e => addBreakwater(e._1, e._2, e._3))
   }
 
   // only before setWave
