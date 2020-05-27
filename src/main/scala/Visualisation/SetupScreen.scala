@@ -18,11 +18,12 @@ object SetupScreen {
   private var windDirection: Vector2[Double] = new Vector2[Double](1, 100) // TODO: Input wind direction
   private var waiting : Boolean = true
   private var world : World = _
+  private var skip : Int = 1 // skip (1/skip) steps
 
   def main(args: Array[String]): Unit = {
     while(waiting) Thread.sleep(1000)
     println("ok")
-    world.run()
+    world.run(skip)
   }
 
   new Frame {

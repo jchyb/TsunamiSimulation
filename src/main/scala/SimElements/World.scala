@@ -31,12 +31,14 @@ class World(private val simTime : Int, receiver : Receiver){
     wind = Wind(windDirection, windForce)
   }
 
-  def run(): Unit = {
+  def run(skip: Int = 1): Unit = {
     val deltaTime = 1
     for(i <- 0 to simTime){
       water.update(deltaTime, wind)
-      receiver.receive(toIterable)
-      Thread.sleep(100)
+      if(i%skip==0) {
+        receiver.receive(toIterable)
+        Thread.sleep(100)
+      }
     }
   }
   def toIterable: Iterable[WorldEntity] = {
