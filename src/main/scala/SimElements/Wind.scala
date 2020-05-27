@@ -2,7 +2,7 @@ package SimElements
 
 import Utils.Vector2
 
-case class Wind(private val direction: Vector2[Double], private val impact: Double = 0.001) {
+case class Wind(private val direction: Vector2[Double], private val impact: Double = 0.001) extends WorldEntity {
   // direction - direction and power of wind, impact - how much does wind impact water
 
   private val minHeightImpact = 0.001

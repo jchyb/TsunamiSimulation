@@ -1,6 +1,6 @@
 package Utils
 
-import SimElements.{Breakwater, Receiver, WaterParticle, WorldEntity}
+import SimElements.{Breakwater, Receiver, WaterParticle, Wind, WorldEntity}
 
 class Logger extends Receiver{
   var received : Int = 0
@@ -15,6 +15,8 @@ class Logger extends Receiver{
         case Breakwater(position, radius, height)
           => println("B, position: " + position.toString
                      + ", radius: " + radius.toString + ", height: " + height.toString)
+        case Wind(direction, impact)
+          => println("~, direction: " + direction.toString + ", impact: " + impact.toString)
       }
     }
   }

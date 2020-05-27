@@ -27,14 +27,13 @@ class RenderingFrame(private val simulationWorld : World) extends Frame with Rec
 
     if(entityIterable.nonEmpty) {
       for (entity <- entityIterable) entity match {
-        case WaterParticle(position, force, height) => {
+        case WaterParticle(position, force, height) =>
           g.setColor(new Color(0,0,255, math.min((height*500).toInt, 255)))
           g.fillRect(position.x*2 + size.width/2, position.y*2 + size.height/2, 2, 2)
-        }
-        case Breakwater(position, radius, height) => {
+        case Breakwater(position, radius, height) =>
           g.setColor(Color.BLACK)
           g.fillOval((position.x-radius).toInt*2 + size.width/2, (position.y-radius).toInt*2 + size.height/2, radius.toInt*4, radius.toInt*4)
-        }
+        case Wind(direction, impact) => ()
       }
     }
   }

@@ -51,6 +51,6 @@ class World(private val steps : Int, receiver : Receiver){
   def stop() : Unit ={ running = false }
 
   def toIterable: Iterable[WorldEntity] = {
-    water.toIterable ++ breakwatersMap.values.toSet
+    Iterable[Wind](wind) ++ water.toIterable ++ breakwatersMap.values.toSet
   }
 }
