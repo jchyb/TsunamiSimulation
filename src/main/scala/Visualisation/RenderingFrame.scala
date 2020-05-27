@@ -21,7 +21,6 @@ class RenderingFrame(private val simulationWorld : World) extends Frame with Rec
       override def paint(g: Graphics2D) : Unit = draw(g)
     }
     pack()
-    centerOnScreen()
     open()
   }
 
@@ -49,4 +48,5 @@ class RenderingFrame(private val simulationWorld : World) extends Frame with Rec
   override def closeOperation(): Unit = {
     visible = false
   }
+  centerOnScreen()
 }
