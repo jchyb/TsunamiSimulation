@@ -16,7 +16,6 @@ class Water(private val shore: Shore, private val breakwatersMap: mutable.HashMa
   def update(deltaTime: Double, wind: Wind): Unit = {
     var list: List[WaterParticle] = waterMap.values.filter(_.height>minHeight).toList.flatMap(_.update(deltaTime))
 
-    // apply wind
     list = list.map(wind(_))
 
     list = list.map(shore(_))

@@ -2,7 +2,7 @@ import SimElements.{Breakwater, Shore, WaterParticle, Wind}
 import Utils.Vector2
 import org.scalatest.funsuite.AnyFunSuite
 
-class SetSuite extends AnyFunSuite {
+class Tests extends AnyFunSuite {
 
   test("Normalisation Vector2") {
     assert(Vector2[Int](0,4).normalise() == Vector2(0,1))
@@ -50,10 +50,5 @@ class SetSuite extends AnyFunSuite {
   test("Test Shore"){
     assert(shore(WaterParticle(pos, force, height)).force == force)
     assert(shore(WaterParticle(-pos, force, height)).force != force)
-  }
-  test("Invoking head on an empty Set should produce NoSuchElementException") {
-    assertThrows[NoSuchElementException] {
-      Set.empty.head
-    }
   }
 }
