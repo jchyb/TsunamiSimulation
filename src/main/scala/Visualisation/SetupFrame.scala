@@ -13,14 +13,14 @@ object SetupFrame {
   private var waveStrength : Double = 50
   private var windStrength : Double = 50
   private var steps : Int = 50
-  private var windImpact: Double = 0.001
+  private val windImpact: Double = 0.001
   private val wavePosition : Vector2[Int] = new Vector2[Int](50,0)
   private var windDirection: Vector2[Double] = new Vector2[Double](1, 100)
   private var waiting : Boolean = true
   private var world : World = _
-  private var shoreStart: Int = -100 //-200
-  private var shoreSteepness: Double = 0.01 //0.1
-  private var skip : Int = 1 // skip (1/skip) steps
+  private val shoreStart: Int = -100 //-200
+  private val shoreSteepness: Double = 0.01 //0.1
+  private val skip : Int = 1
   private var breakWaterSize : Double = 5
   private var breakWaterAmount : Int = 5
 

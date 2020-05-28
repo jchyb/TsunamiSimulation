@@ -8,7 +8,7 @@ class World(private val steps : Int, receiver : Receiver){
   var water : Water = _
   var wind : Wind = _
   var shore : Shore = _
-  var breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater] = _
+  var breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater] = mutable.HashMap()
   var running = true
 
   def initBreakwaters(list: List[(Vector2[Int], Double, Double)] = List((Vector2[Int](-50, 0), 5, 10))): Unit = {
@@ -20,7 +20,6 @@ class World(private val steps : Int, receiver : Receiver){
     shore = new Shore(func)
   }
 
-  // only before setWave
   def addBreakwater(position: Vector2[Int], r: Double, height: Double): Unit = {
     val breakwater = Breakwater(position, r, height)
     var list: List[Vector2[Int]] = for(i <- ((-r).toInt to r.toInt).toList; j <- ((-r).toInt to r.toInt).toList) yield Vector2[Int](i, j)
@@ -29,7 +28,7 @@ class World(private val steps : Int, receiver : Receiver){
   }
 
   def setWave(wavePosition : Vector2[Int], waveStrength : Double): Unit = {
-    water = new Water(shore, breakwatersMap)
+    water = new Water()
     water.initiateWave(wavePosition, waveStrength)
   }
 
@@ -40,7 +39,7 @@ class World(private val steps : Int, receiver : Receiver){
   def run(skip: Int = 1): Unit = {
     val deltaTime = 1
     for(i <- 0 to steps){
-      water.update(deltaTime, wind)
+      water.update(deltaTime, wind, breakwatersMap, shore)
       if(i%skip==0) {
         receiver.receive(toIterable)
         Thread.sleep(100)

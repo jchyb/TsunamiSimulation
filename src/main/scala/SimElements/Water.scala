@@ -4,8 +4,7 @@ import Utils.Vector2
 
 import scala.collection.mutable
 
-class Water(private val shore: Shore, private val breakwatersMap: mutable.HashMap[Vector2[Int], Breakwater] = mutable.HashMap()) {
-  // Contains breakWaters
+class Water() {
 
   private val minHeight = 0.01
 
@@ -13,15 +12,15 @@ class Water(private val shore: Shore, private val breakwatersMap: mutable.HashMa
   private val waterMap: mutable.HashMap[Vector2[Int], WaterParticle] = mutable.HashMap()
 
   // Apply water physics
-  def update(deltaTime: Double, wind: Wind): Unit = {
+  def update(deltaTime: Double, wind: Wind,
+             breakwatersMap : mutable.HashMap[Vector2[Int],Breakwater], shore :Shore): Unit = {
     var list: List[WaterParticle] = waterMap.values.filter(_.height>minHeight).toList.flatMap(_.update(deltaTime))
 
     list = list.map(wind(_))
 
     list = list.map(shore(_))
 
-    //apply collision
-    list = applyCollision(list)
+    list = applyCollision(list, breakwatersMap)
 
     waterMap.clear()
     list.foreach(particle => waterMap.get(particle.position) match {
@@ -29,7 +28,8 @@ class Water(private val shore: Shore, private val breakwatersMap: mutable.HashMa
         case None => waterMap.addOne(particle.position, particle)})
   }
 
-  def applyCollision(list: List[WaterParticle]): List[WaterParticle] = {
+  def applyCollision(list: List[WaterParticle],
+                     breakwatersMap : mutable.HashMap[Vector2[Int],Breakwater]): List[WaterParticle] = {
     var res: List[WaterParticle] = List()
     list.foreach(particle => breakwatersMap.get(particle.position) match {
       case Some(breakwater) => res = res.concat(breakwater.collide(particle))
